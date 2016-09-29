@@ -133,20 +133,22 @@ class ExceptionEvent(EventBase):
 class CommandEvent(EventBase):
     def __init__(self, ctx):
         super().__init__()
-        self.dest = None
+        self.dstNode = None
+        self.dstModule = None
         self.ctx = ctx
         self.responseQueue = None
 
 
 class ReturnValueEvent(EventBase):
-    def __init__(self, dest, ctx, msg):
+    def __init__(self, ctx, msg):
         super().__init__()
-        self.dest = dest
+        self.dstNode = None
+        self.dstModule = None
         self.ctx = ctx
         self.msg = msg
 
     def to_string(self):
-        return str(self.dest) + ', ' + str(self.ctx) + ', ' + str(self.msg)
+        return str(self.dstNode) + ', ' + str(self.ctx) + ', ' + str(self.msg)
 
 
 class TimeEvent(EventBase):

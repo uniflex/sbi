@@ -41,10 +41,10 @@ class EventBase(object):
 
     def __init__(self):
         super().__init__()
+        self.srcNode = None
+        self.srcModule = None
         self.node = None
         self.device = None
-        self.destNode = None
-    pass
 
 
 class ServiceBase(object):
