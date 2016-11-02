@@ -1,5 +1,5 @@
 from .upi import Upi
-from .upi import EventBase
+from wishful_agent.core.events import EventBase
 
 __author__ = "Piotr Gawlowicz, Anatolij Zubow, Mikolaj Chwalisz"
 __copyright__ = "Copyright (c) 2015, Technische Universitat Berlin"
