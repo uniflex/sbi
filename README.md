@@ -1,8 +1,7 @@
-WiSHFUL Framework
+WiSHFUL UPI
 =================
 
-This is a prototypic implementation of a wireless controller using the Unified Programming Interfaces (UPIs) of the 
-Wishful software platform for radio and network control.
+The Unified Programming Interfaces (UPIs) for radio and network control.
 
 ## Acknowledgement
 

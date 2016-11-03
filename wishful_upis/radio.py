@@ -1,6 +1,6 @@
 from .upi import Upi
-from wishful_agent.core.events import EventBase
-from wishful_agent.core.events import ServiceBase
+from uniflex.core.events import EventBase
+from uniflex.core.events import ServiceBase
 
 __author__ = "Piotr Gawlowicz, Mikolaj Chwalisz, Zubow"
 __copyright__ = "Copyright (c) 2015, Technische Universitat Berlin"
