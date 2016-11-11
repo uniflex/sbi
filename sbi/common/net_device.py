@@ -37,3 +37,21 @@ class NetDevice(object):
         desc
         '''
         raise NotImplementedError
+
+    def get_info(self, iface=None):
+        """
+        desc
+        """
+        raise NotImplementedError
+
+    def set_parameters(self, param_key_values):
+        """
+        desc
+        """
+        raise NotImplementedError
+
+    def get_parameters(self, param_key_list):
+        """
+        desc
+        """
+        raise NotImplementedError

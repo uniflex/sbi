@@ -10,6 +10,8 @@ class WiFiNetDevice(RadioNetDevice):
     '''
     Base Class for WiFi Network Device
     '''
+
+    """MAC"""
     def set_mac_access_parameters(self, iface, queueId, qParam):
         '''
         MAC access parameters in 802.11e: the configuration
@@ -24,18 +26,10 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
+    """PHY"""
     def get_airtime_utilization(self):
         '''
         Returns the relative time the spectrum is empty.
-        '''
-        raise NotImplementedError
-
-    def perform_spectral_scanning(self, iface, freq_list, mode):
-        '''
-        Perform spectral scanning.
-
-        Returns:
-            Power value for each frequency bin.
         '''
         raise NotImplementedError
 
@@ -102,37 +96,19 @@ class WiFiNetDevice(RadioNetDevice):
         """
         raise NotImplementedError
 
-    def install_mac_processor(self, interface, mac_profile):
-        """
-        Install new WiFi MAC Processor
-        """
-        raise NotImplementedError
-
-    def update_mac_processor(self, interface, mac_profile):
-        '''
-        Update WiFi MAC Processor
-        '''
-        raise NotImplementedError
-
-    def uninstall_mac_processor(self, interface, mac_profile):
-        '''
-        Uninstall new WiFi MAC Processor
-        '''
-        raise NotImplementedError
-
     '''
         Channel state information and spectrum scanning capabilities.
     '''
 
-    def receive_csi(self, runt):
+    def monitor_csi_start(self, runt):
         '''
         Receives CSI samples from the ath9k driver.
         '''
         raise NotImplementedError
 
-    def scan_psd(self, runt):
+    def monitor_csi_stop(self, runt):
         '''
-        Receives PSD samples from the ath9k driver.
+        Receives CSI samples from the ath9k driver.
         '''
         raise NotImplementedError
 
@@ -244,23 +220,12 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    def get_wifi_card_info(self, iface):
-        '''
-        Get info about the wifi card: vendor, driver, ...
-        '''
-        raise NotImplementedError
-
     ''' Upper MAC layer '''
 
-    def set_ap_conf(iface, config):
+    def start_ap(self, iface, config):
         '''
         Set hostapd configuration, provide functionality
         to setting Access Point station
-        '''
-        raise NotImplementedError
-
-    def start_ap(self):
-        '''
         Start hostapd, provide functionality to run Access Point
         '''
         raise NotImplementedError
@@ -268,20 +233,6 @@ class WiFiNetDevice(RadioNetDevice):
     def stop_ap(self):
         '''
         Stop hostapd, provide functionality to stop Access Point
-        '''
-        raise NotImplementedError
-
-    def connect_to_network(self, iface, **kwargs):
-        '''
-        Connects a given interface to some network
-        e.g. WiFi network identified by SSID.
-        '''
-        raise NotImplementedError
-
-    def network_dump(iface):
-        '''
-        Return the connection information a given
-        interface to some network
         '''
         raise NotImplementedError
 
@@ -476,15 +427,28 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
+    def stop_gen_layer2_traffic(self, iface, num_packets, pinter,
+                                max_phy_broadcast_rate_mbps=None, **kwargs):
+        '''
+        Inject layer2 traffic into network device.
+        '''
+        raise NotImplementedError
+
+    def start_l2_sniffing(self, iface, sniff_timeout, **kwargs):
+        '''
+        Layer-2 packet sniffing from network device.
+        '''
+        raise NotImplementedError
+
+    def stop_l2_sniffing(self, iface, sniff_timeout, **kwargs):
+        '''
+        Layer-2 packet sniffing from network device.
+        '''
+        raise NotImplementedError
+
     def inject_frame(self, iface, frame, is_layer_2_packet,
                      tx_count=1, pkt_interval=1):
         '''
         Inject L2/L3 frame injection into the protocol stack
-        '''
-        raise NotImplementedError
-
-    def sniff_layer2_traffic(self, iface, sniff_timeout, **kwargs):
-        '''
-        Layer-2 packet sniffing from network device.
         '''
         raise NotImplementedError
