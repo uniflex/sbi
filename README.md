@@ -1,7 +1,10 @@
-WiSHFUL UPI
-=================
+Southbound Interface
+====================
 
-The Unified Programming Interfaces (UPIs) for radio and network control.
+Southbound Interface contains abstract classes for device and protocol modules.
+
+## Installation:
+To install UniFlex framework with all available modules, please go through all steps in [manifest](https://github.com/uniflex/manifests) repository.
 
 ## Acknowledgement
 
