@@ -29,13 +29,6 @@ class IpProtocol(Protocol):
         '''
         raise NotImplementedError
 
-    def get_iface_hw_addr(self, iface):
-        '''
-        Returns the hardware address
-        (MAC address) of a given interface.
-        '''
-        raise NotImplementedError
-
     def change_routing(self, current_gw_ip_addr,
                        new_gw_ip_addr, device_ip_addr):
         '''

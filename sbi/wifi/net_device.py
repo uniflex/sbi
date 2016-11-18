@@ -8,35 +8,23 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 class WiFiNetDevice(RadioNetDevice):
     '''
-    Base Class for WiFi Network Device
+    Base Class for all WiFi Network Device, i.e. WiFi COTS (Atheros, Broadcom, etc.) and SDR (GnuRadio, NI-SDR)
     '''
 
-    """MAC"""
-    def set_mac_access_parameters(self, iface, queueId, qParam):
-        '''
-        MAC access parameters in 802.11e: the configuration
-        of the access categories
-        '''
-        raise NotImplementedError
+    '''
+        PHY layer
+    '''
 
-    def get_mac_access_parameters(self, queueId):
-        '''
-        MAC access parameters: in 802.11e:
-        the configuration of the access categories
-        '''
-        raise NotImplementedError
-
-    """PHY"""
     def get_airtime_utilization(self):
         '''
-        Returns the relative time the spectrum is empty.
+        Returns the relative time the spectrum is occupied.
         '''
         raise NotImplementedError
 
-    def set_channel(self, channel, iface):
+    def set_channel(self, channel, iface, **kwargs):
         '''
-        Set channel for given interface,
-        i.e. center frequency of the primary band.
+        Set channel for given interface, i.e. center frequency of the primary band. Secondary bands are given in
+        optional arguments
 
         Args:
             channel: channel to set
@@ -44,10 +32,10 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    def get_channel(self, iface):
+    def get_channel(self, iface, **kwargs):
         '''
         Get channel of given interface,
-        i.e. center frequency of the primary band.
+        i.e. center frequency of the primary band or optionally secondaries.
 
         Args:
             iface: interface
@@ -121,6 +109,23 @@ class WiFiNetDevice(RadioNetDevice):
     def rf_unblock(self, iface):
         '''
         Turn off the softblock
+        '''
+        raise NotImplementedError
+
+    '''
+        MAC layer
+    '''
+    def set_mac_access_parameters(self, iface, queueId, qParam):
+        '''
+        MAC access parameters in 802.11e: the configuration
+        of the access categories
+        '''
+        raise NotImplementedError
+
+    def get_mac_access_parameters(self, queueId):
+        '''
+        MAC access parameters: in 802.11e:
+        the configuration of the access categories
         '''
         raise NotImplementedError
 
@@ -220,7 +225,9 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    ''' Upper MAC layer '''
+    '''
+        Upper MAC layer
+    '''
 
     def start_ap(self, iface, config):
         '''
@@ -418,7 +425,9 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    ''' Upper MAC layer - injection and sniffing of layer2 traffic '''
+    '''
+        Upper MAC layer - injection and sniffing of layer2 traffic
+    '''
 
     def gen_layer2_traffic(self, iface, num_packets, pinter,
                            max_phy_broadcast_rate_mbps=None, **kwargs):

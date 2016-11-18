@@ -18,7 +18,7 @@ class LowPanNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    def blacklist_channels():
+    def blacklist_channels(self):
         '''
         desc
         '''

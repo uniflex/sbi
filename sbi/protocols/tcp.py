@@ -16,7 +16,7 @@ class TcpProtocol(Protocol):
         '''
         raise NotImplementedError
 
-    def get_tx_window_size():
+    def get_tx_window_size(self):
         '''
         Get TX window size
         '''

@@ -8,45 +8,51 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 class RadioNetDevice(NetDevice):
     '''
-    Base Class for Radio Network Device
+    Base Class for all Radio (Wireless) Network Devices. It inherits functionality from NetDevice.
     '''
-    # Activation and deactivation of radio programs.
+
+    '''
+        Activation and deactivation of custom radio programs. This is mostly for SDR platforms
+        (GnuRadio, ...).
+    '''
 
     def activate_radio_program(self, radio_program_id, **kwargs):
         """
-        desc
+        Activates the given radio program, i.e. is loaded and started.
         """
         raise NotImplementedError
 
     def deactivate_radio_program(self, radio_program_id):
         """
-        desc
+        Deactivates the given radio program, i.e. it is stopped.
         """
         raise NotImplementedError
 
     def get_running_radio_program(self):
         """
-        desc
+        Returns the identifier of the running radio program or None.
         """
         raise NotImplementedError
 
-    ''' Transmission of radio waveform (no MAC) '''
+    ''' Transmission of radio waveforms (just PHY, no MAC). This is mostly supported by SDR platforms '''
 
     def play_waveform(self, **kwargs):
         '''
-        Starts transmitting a radio waveform (just PHY, no MAC).
+        Starts transmission of radio waveform (just PHY, no MAC).
         '''
         raise NotImplementedError
 
     def stop_waveform(self):
         '''
-        Stops transmitting a radio waveform.
+        Stops transmission of radio waveform.
         '''
         raise NotImplementedError
 
+    ''' Spectral scanning capabilities '''
+
     def spectral_scan_start(self, iface, freq_list, **kwargs):
         '''
-        Perform spectral scanning.
+        Perform spectral scanning. This is mostly supported by SDR but sometimes also COTS hardware.
 
         Returns:
             Power value for each frequency bin.
@@ -62,90 +68,28 @@ class RadioNetDevice(NetDevice):
         '''
         raise NotImplementedError
 
+    ''' Transmit power control '''
+
     def set_tx_power(self, power_dBm, iface):
         '''
-        Set transmission power for a give interface
+        Set transmission power for the device. Note: sometimes you can set per interface.
         '''
         raise NotImplementedError
 
     def get_tx_power(self, iface):
         '''
-        Get transmission power of given interface
+        Get transmission power of device/interface.
         '''
         raise NotImplementedError
 
     def get_noise(self):
         '''
-        Returns the noise floor measured by the wireless driver.
+        Returns the noise floor.
         '''
         raise NotImplementedError
 
-    def get_interfaces(self):
-        '''
-        Returns all network interfaces of device
-        '''
-        raise NotImplementedError
 
-    def get_interface_info(self, iface):
-        '''
-        Returns info on network interface
-        '''
-        raise NotImplementedError
-
-    def add_interface(self, iface, mode, **kwargs):
-        '''
-        Add wireless interface with iface and mode
-        '''
-        raise NotImplementedError
-
-    def del_interface(self, iface):
-        '''
-        Delete interface by name
-        '''
-        raise NotImplementedError
-
-    def set_interface_up(self, iface):
-        '''
-        Set interface UP
-        '''
-        raise NotImplementedError
-
-    def set_interface_down(self, iface):
-        '''
-        Set interface DOWN
-        '''
-        raise NotImplementedError
-
-    def is_interface_up(self, iface):
-        '''
-        Check if interface is up
-        '''
-        raise NotImplementedError
-
-    def get_link_info(self, iface):
-        '''
-        Get link info of interface
-        '''
-        raise NotImplementedError
-
-    def is_connected(self, iface):
-        '''
-        Check if interface is in connected state
-        '''
-        raise NotImplementedError
-
-    def connect(self, iface, **kwargs):
-        '''
-        Connects a given interface to some network
-        e.g. WiFi network identified by SSID.
-        '''
-        raise NotImplementedError
-
-    def disconnect(self, iface):
-        '''
-        Disconnect interface
-        '''
-        raise NotImplementedError
+    ''' For radio technologies the regulation domain need sometimes to be set '''
 
     def get_regulatory_domain(self):
         '''

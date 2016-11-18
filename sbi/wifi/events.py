@@ -1,72 +1,55 @@
 from uniflex.core.events import EventBase
 from sbi.radio_device.events import *
+from sbi.radio_device.events import GenericRadioDeviceEvent
 
 __author__ = "Piotr Gawlowicz, Anatolij Zubow"
 __copyright__ = "Copyright (c) 2015, Technische Universitat Berlin"
 __version__ = "0.1.0"
 __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
+
 '''
-    Handover operation
+    Defintion of WiFi specific device events.
 '''
 
+class GenericWiFiEvent(GenericRadioDeviceEvent):
+    ''' base class for all WiFI events '''
+    def __init__(self):
+        super().__init__()
+        pass
 
-class TriggerHandoverRequestEvent(EventBase):
+'''
+    Events enabling handover operation in WiFi infrastructure networks. Note, it is a network-wide operation
+    as multiple nodes are involved.
+'''
+
+class WiFiHandoverRequestEvent(GenericWiFiEvent):
     '''
     Event to trigger a handover operation.
     '''
-    def __init__(self, sta_id, serving_node, target_node, gateway):
+    def __init__(self, client_sta_id, serving_AP, target_AP, gateway, **kwargs):
         super().__init__()
-        self.sta_id = sta_id
-        self.serving_node = serving_node
-        self.targetAP_node = target_node
+        self.client_sta_id = client_sta_id
+        self.serving_AP = serving_AP
+        self.target_AP = target_AP
         self.gateway = gateway
 
 
-class TriggerHandoverReplyEvent(EventBase):
+class WiFiHandoverReplyEvent(GenericWiFiEvent):
     '''
-    Reply send after triggering handover operation.
+    Reply sent after handover operation was performed.
     '''
     def __init__(self, success):
         super().__init__()
         self.success = success
 
 
-'''
-    The protocol-specific global events for performing network-wide operations
-    which go beyond just remote UPI_R/N calls
+''' Get serving AP '''
 
-    IEEE 802.11 protocol family
-'''
-
-
-class WiFiTriggerHandoverRequestEvent(TriggerHandoverRequestEvent):
+class WiFiGetServingAPRequestEvent(GenericWiFiEvent):
     '''
-    Event to trigger a WiFi handover operation.
-    Only supported in infrastructure mode.
-    '''
-
-    def __init__(self, sta_mac_addr, sta_ip, wlan_iface,
-                 wlan_inject_iface, network_bssid, serving_AP, serving_AP_ip,
-                 serving_channel, target_AP, target_AP_ip,
-                 target_channel, gateway, ho_scheme):
-        super().__init__(sta_mac_addr, serving_AP, target_AP, gateway)
-        self.sta_ip = sta_ip
-        self.wlan_iface = wlan_iface
-        self.wlan_inject_iface = wlan_inject_iface
-        self.network_bssid = network_bssid
-        self.servingAP_ip = serving_AP_ip
-        self.servingChannel = serving_channel
-        self.targetAP_ip = target_AP_ip
-        self.targetChannel = target_channel
-        self.ho_scheme = ho_scheme
-
-
-class WiFiGetServingAPRequestEvent(EventBase):
-    '''
-    Event to find out the access point serving
-    a particular client station. Only supported
-    in infrastructure mode.
+    Event to find out the AP serving a particular client station. Only supported in WiFI infrastructure mode.
+    Note, it is a network-wide operation.
     '''
 
     def __init__(self, sta_mac_addr, wifi_intf):
@@ -75,7 +58,7 @@ class WiFiGetServingAPRequestEvent(EventBase):
         self.wifi_intf = wifi_intf
 
 
-class WiFiGetServingAPReplyEvent(EventBase):
+class WiFiGetServingAPReplyEvent(GenericWiFiEvent):
     '''
     Event containing the UUID of the AP serving the client station.
     '''
@@ -84,9 +67,12 @@ class WiFiGetServingAPReplyEvent(EventBase):
         self.ap_uuid = ap_uuid
 
 
-class WiFiTestTwoNodesInCSRangeRequestEvent(EventBase):
+''' Test whether two WiFi nodes are in carrier sensing range of each other '''
+
+class WiFiTestTwoNodesInCSRangeRequestEvent(GenericWiFiEvent):
     '''
     Event to test whether two nodes are in carrier sensing range or not.
+    Note, it is a network-wide operation.
     '''
     def __init__(self, node1, node2, mon_dev, TAU):
         super().__init__()
@@ -98,15 +84,16 @@ class WiFiTestTwoNodesInCSRangeRequestEvent(EventBase):
 
 class WiFiTestTwoNodesInCSRangeReplyEvent(WiFiTestTwoNodesInCSRangeRequestEvent):
     '''
-    Event containing information about whether two
-    nodes are in carrier sensing range or not.
+    Reply event containing information about whether two nodes are in carrier sensing range or not.
     '''
     def __init__(self, node1, node2, mon_dev, TAU, in_cs):
         super().__init__(node1, node2, mon_dev, TAU)
         self.in_cs = in_cs
 
 
-class WiFiGetNodesInCSRangeRequestEvent(EventBase):
+''' Pair-wise carrier sensing test. All pair of nodes in the network will be tested '''
+
+class WiFiGetNodesInCSRangeRequestEvent(GenericWiFiEvent):
     '''
     Event to check each nodes pairs whether it is
     in carrier sensing range or not.
@@ -117,7 +104,9 @@ class WiFiGetNodesInCSRangeRequestEvent(EventBase):
         self.TAU = TAU
 
 
-class WiFiTestTwoNodesInCommRangeRequestEvent(EventBase):
+''' Test whether two WiFi nodes are in communication range of each other '''
+
+class WiFiTestTwoNodesInCommRangeRequestEvent(GenericWiFiEvent):
     '''
     Event to test whether two nodes are in communication range or not.
     '''
@@ -139,7 +128,9 @@ class WiFiTestTwoNodesInCommRangeReplyEvent(WiFiTestTwoNodesInCommRangeRequestEv
         self.in_comm = in_comm
 
 
-class WiFiGetNodesInCommRangeRequestEvent(EventBase):
+''' Pair-wise communication range test. All pair of nodes in the network will be tested '''
+
+class WiFiGetNodesInCommRangeRequestEvent(GenericWiFiEvent):
     '''
     Event to check each nodes pairs whether it is
     in communication range or not.
