@@ -22,7 +22,7 @@ class RadioNetDevice(NetDevice):
         """
         raise NotImplementedError
 
-    def deactivate_radio_program(self, radio_program_id):
+    def deactivate_radio_program(self, radio_program_id, **kwargs):
         """
         Deactivates the given radio program, i.e. it is stopped.
         """
