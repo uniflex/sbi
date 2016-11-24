@@ -8,7 +8,8 @@ __email__ = "{gawlowicz, zubow}@tkn.tu-berlin.de"
 
 class WiFiNetDevice(RadioNetDevice):
     '''
-    Base Class for all WiFi Network Device, i.e. WiFi COTS (Atheros, Broadcom, etc.) and SDR (GnuRadio, NI-SDR)
+    Base Class for all WiFi Network Device, i.e. WiFi COTS (Atheros, Broadcom, etc.)
+    and SDR (GnuRadio, NI-SDR)
     '''
 
     '''
@@ -51,7 +52,7 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    def configure_radio_sensitivity(self, phy_dev, **kwargs):
+    def configure_radio_sensitivity(self, ani_mode):
         '''
         Configuring the receiving sensitivity of the IEEE 802.11 radio.
         '''
