@@ -430,8 +430,8 @@ class WiFiNetDevice(RadioNetDevice):
         Upper MAC layer - injection and sniffing of layer2 traffic
     '''
 
-    def gen_layer2_traffic(self, iface, num_packets, pinter,
-                           max_phy_broadcast_rate_mbps=None, **kwargs):
+    def gen_layer2_traffic(self, iface, num_packets, pkt_interval,
+                           max_phy_broadcast_rate_mbps, **kwargs):
         '''
         Inject layer2 traffic into network device.
         '''
