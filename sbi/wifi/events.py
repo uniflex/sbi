@@ -33,6 +33,7 @@ class WiFiHandoverRequestEvent(GenericWiFiEvent):
         self.serving_AP = serving_AP
         self.target_AP = target_AP
         self.gateway = gateway
+        self.kwargs = kwargs
 
 
 class WiFiHandoverReplyEvent(GenericWiFiEvent):
