@@ -89,15 +89,21 @@ class WiFiNetDevice(RadioNetDevice):
         Channel state information and spectrum scanning capabilities.
     '''
 
+    def get_csi(self, num_samples):
+        '''
+        Return CSI values; i.e. the next num_samples CSI samples from the driver.
+        '''
+        raise NotImplementedError
+
     def monitor_csi_start(self, runt):
         '''
-        Receives CSI samples from the ath9k driver.
+        Start CSI service to receives CSI samples from wifi driver.
         '''
         raise NotImplementedError
 
     def monitor_csi_stop(self, runt):
         '''
-        Receives CSI samples from the ath9k driver.
+        Stops CSI service.
         '''
         raise NotImplementedError
 
