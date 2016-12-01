@@ -89,7 +89,7 @@ class WiFiNetDevice(RadioNetDevice):
         Channel state information and spectrum scanning capabilities.
     '''
 
-    def get_csi(self, num_samples):
+    def get_csi(self, num_samplesi, withMetaData=False):
         '''
         Return CSI values; i.e. the next num_samples CSI samples from the driver.
         '''
