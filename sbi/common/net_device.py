@@ -141,3 +141,11 @@ class NetDevice(object):
         Disconnect interface from network
         '''
         raise NotImplementedError
+
+
+    ''' DEBUG '''
+    def debug(self, out):
+        '''
+        For debug purposes
+        '''
+        raise NotImplementedError
