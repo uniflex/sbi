@@ -44,3 +44,9 @@ class SpectralScanSampleEvent(GenericRadioDeviceEvent):
     def parse(cls, buf):
         sample = buf.get("sample", None)
         return cls(sample)
+
+class CSISampleEvent(GenericRadioDeviceEvent):
+    ''' CSI collector '''
+    def __init__(self, sample):
+        super().__init__()
+        self.sample = sample

@@ -95,17 +95,24 @@ class WiFiNetDevice(RadioNetDevice):
         '''
         raise NotImplementedError
 
-    def monitor_csi_start(self, runt):
+    def csi_collector_start(self, ival):
         '''
         Start CSI service to receives CSI samples from wifi driver.
         '''
         raise NotImplementedError
 
-    def monitor_csi_stop(self, runt):
+    def csi_collector_stop(self):
         '''
         Stops CSI service.
         '''
         raise NotImplementedError
+
+    def is_csi_collector_running(self):
+        '''
+        Is CSI collector running
+        '''
+        raise NotImplementedError
+
 
     def is_rf_blocked(self, iface):
         '''

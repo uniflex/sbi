@@ -74,6 +74,15 @@ class RadioNetDevice(NetDevice):
         '''
         raise NotImplementedError
 
+    def is_spectral_scan_running(self):
+        '''
+        Check if spectral scanning is running.
+
+        Returns:
+            True or False
+        '''
+        raise NotImplementedError
+
     ''' Transmit power control '''
 
     def set_tx_power(self, power_dBm, iface):
