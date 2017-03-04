@@ -16,19 +16,19 @@ class RadioNetDevice(NetDevice):
         (GnuRadio, ...).
     '''
 
-    def activate_radio_program(self, radio_program_id, radio_program, iface=None):
+    def activate_radio_program(self, radio_program_id=None, radio_program=None, iface=None):
         """
         Activates the given radio program, i.e. is loaded and started.
         """
         raise NotImplementedError
 
-    def update_radio_program(self, radio_program_id, radio_program, iface=None):
+    def update_radio_program(self, radio_program_id=None, radio_program=None, iface=None):
         """
         Updates/replaces running radio program.
         """
         raise NotImplementedError
 
-    def deactivate_radio_program(self, radio_program_id, do_pause=False):
+    def deactivate_radio_program(self, radio_program_id=None, do_pause=False):
         """
         Deactivates the given radio program, i.e. it is stopped.
         """
