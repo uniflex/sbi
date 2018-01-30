@@ -27,3 +27,16 @@ class LinkUpEvent(GenericNetDeviceEvent):
     def __init__(self):
         super().__init__()
         pass
+
+''' Application Intent events '''
+class AppIntentEvent(EventBase):
+    """
+        Whenever an application intent is set on an application this event is send.
+    """
+    def __init__(self, app_intent_desc):
+        """
+        Iperf sample result event.
+        :param _desc: the description of the application intent
+        """
+        super().__init__()
+        self.app_intent_desc = app_intent_desc
